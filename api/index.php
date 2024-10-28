@@ -1,58 +1,59 @@
 <?php
-//tags http://cdn.apc.360.cn/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome
-//new http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByOrder&order=create_time&start=【0开始】&count=【加载数】&from=360chrome
-//专区 http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByCategory&cid=【分类ID】&start=【0开始】&count=【加载数】&from=360chrome
+// Categories URL: https://cdn.apc.360.cn/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome
+// Latest wallpapers URL: https://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByOrder&order=create_time&start=[start index]&count=[number of wallpapers]&from=360chrome
+// Category wallpapers URL: https://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByCategory&cid=[category ID]&start=[start index]&count=[number of wallpapers]&from=360chrome
 
 $cid = getParam('cid', '360new');
 
-switch($cid)
-{
-    case '360new':  // 360壁纸 新图片
+switch($cid) {
+    case '360new':  // 360 Wallpaper - Latest images
         $start = getParam('start', 0);
         $count = getParam('count', 10);
-        echojson(file_get_contents("http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByOrder&order=create_time&start={$start}&count={$count}&from=360chrome"));
-    break;
+        echoJson(file_get_contents("https://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByOrder&order=create_time&start={$start}&count={$count}&from=360chrome"));
+        break;
     
-    case '360tags':
-        echojson(file_get_contents("http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome"));
-    break;
+    case '360tags':  // 360 Wallpaper - All categories
+        echoJson(file_get_contents("https://cdn.apc.360.cn/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome"));
+        break;
     
-    case 'bing':
+    case 'bing':  // Bing - Daily images
         $start = getParam('start', -1);
         $count = getParam('count', 8);
-        echojson(file_get_contents("http://cn.bing.com/HPImageArchive.aspx?format=js&idx={$start}&n={$count}"));
-    break;
+        echoJson(file_get_contents("https://cn.bing.com/HPImageArchive.aspx?format=js&idx={$start}&n={$count}"));
+        break;
     
-    default:
+    default:  // Category wallpapers
         $start = getParam('start', 0);
         $count = getParam('count', 10);
-        echojson(file_get_contents("http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByCategory&cid={$cid}&start={$start}&count={$count}&from=360chrome"));
-        
-}
-
-
-/**
- * 获取GET或POST过来的参数
- * @param $key 键值
- * @param $default 默认值
- * @return 获取到的内容（没有则为默认值）
- */
-function getParam($key,$default='')
-{
-    return trim($key && is_string($key) ? (isset($_POST[$key]) ? $_POST[$key] : (isset($_GET[$key]) ? $_GET[$key] : $default)) : $default);
+        echoJson(file_get_contents("https://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByCategory&cid={$cid}&start={$start}&count={$count}&from=360chrome"));
 }
 
 /**
- * 输出一个json或jsonp格式的内容
- * @param $data 数组内容
+ * Retrieve a GET or POST parameter
+ * @param string $key Key for the parameter
+ * @param mixed $default Default value if the parameter is not found
+ * @return mixed The parameter value, or the default value if not found
  */
-function echojson($data)
-{
-    header('Content-type: application/json');
+function getParam($key, $default = '') {
+    return trim(
+        is_string($key) && $key ? 
+        (isset($_POST[$key]) ? $_POST[$key] : (isset($_GET[$key]) ? $_GET[$key] : $default)) 
+        : $default
+    );
+}
+
+/**
+ * Output data in JSON or JSONP format
+ * @param string $data The data to be output
+ */
+function echoJson($data) {
+    header('Content-Type: application/json');
     $callback = getParam('callback');
-    if($callback != '') {//输出jsonp格式
-        die(htmlspecialchars($callback).'('.$data.')');
+    if ($callback != '') {
+        // Output JSONP format if callback is specified
+        die(htmlspecialchars($callback) . '(' . $data . ')');
     } else {
+        // Output standard JSON format
         die($data);
     }
 }
