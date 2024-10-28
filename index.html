@@ -4,49 +4,79 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <title>电脑壁纸</title>
+    <title>Desktop Wallpapers</title>
 
-    <meta name="keywords" content="电脑桌面壁纸,高清电脑桌面壁纸,电脑桌面壁纸下载,电脑高清桌面壁纸" />
-    <meta name="description" content="孟坤在线壁纸提供高清电脑壁纸下载,包括美女,游戏,动漫,动物,汽车,体育,广告,影视,明星,风景,绘画,节日,花卉等经典壁纸" />
+    <meta name="keywords" content="desktop wallpaper, HD desktop wallpaper, download computer wallpapers, high-resolution wallpapers" />
+    <meta name="description" content="Mengkun's Online Wallpaper provides high-definition wallpapers, including categories like beauty, games, anime, animals, cars, sports, movies, celebrities, scenery, art, holidays, flowers, and more." />
 
-    <!-- jQuery文件 -->
-    <script src="js/jquery.min.js"></script>
+    <!-- jQuery File - HTTPS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!--滚动加载插件-->
-    <script src="js/jquery.lazyload.min.js"></script>
+    <!-- Lazy Loading Plugin - HTTPS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
-    <!--全屏滚动插件-->
-    <script src="js/jquery.onepage-scroll.min.js"></script>
+    <!-- Full-Page Scrolling Plugin - HTTPS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/onepage-scroll/1.3.1/jquery.onepage-scroll.min.js"></script>
 
-    <!--页面核心js文件-->
+    <!-- Main JavaScript for Page Functionality -->
     <script src="js/wallpaper.js"></script>
     
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="css/wallpaper.css">
+    
+    <!-- Responsive Meta Tag for Mobile Screens -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
 <div class="banner">
-    <h1 class="webTitle" title="Copyright &copy; mengkun's lab">电脑壁纸</h1>
+    <h1 class="webTitle" title="Copyright &copy; Mengkun's Lab">Desktop Wallpapers</h1>
     <ul id="banner">
-        <li onclick="loadData('360new', true);changeTitle(this)">最新壁纸</li>
+        <li onclick="loadData('360new', true);changeTitle(this)">Latest Wallpapers</li>
         <li class="tags">
-            分类壁纸
+            Categories
             <ul id="tags"></ul>
         </li>
-        <li onclick="loadData('bing', true);changeTitle(this)">必应美图</li>
-        <li onclick="loadData('ciba', true);changeTitle(this)" title="金山词霸每日一句壁纸">每日英语</li>
-        <li><a href="https://mkblog.cn" target="_blank">孟坤博客</a></li>
+        <li onclick="loadData('bing', true);changeTitle(this)">Bing Images</li>
+        <li onclick="loadData('ciba', true);changeTitle(this)" title="Kingsoft Ciba Daily English Wallpaper">Daily English</li>
+        <li><a href="https://mkblog.cn" target="_blank">Mengkun Blog</a></li>
     </ul>
 </div>
 
 <div class="container">
     
-    <div class="jigsaw" id="walBox"></div>  <!-- id="walBox" -->
-    
+    <div class="jigsaw" id="walBox"></div> <!-- id="walBox" -->
+
+    <!-- Tool Button -->
     <a id="toolBall" target="_blank" href="javascript:void(0);" class="uptoTop"></a>
     
-    <div id="loadmore">壁纸加载中……</div>
+    <!-- Loading Animation -->
+    <div id="loadmore">Loading wallpapers...</div>
 
-</div><!-- class="container" -->
+</div> <!-- class="container" -->
 
 </body>
+
+<style>
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .banner ul {
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            padding: 10px;
+        }
+    }
+
+    /* Loading Animation Styling */
+    #loadmore {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        font-size: 1.2em;
+        color: #555;
+    }
+</style>
+</html>
